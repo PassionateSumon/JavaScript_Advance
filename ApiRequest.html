@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ApiRequest</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            height: 100%;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #292929;
+        }
+
+        .container {
+            height: 300px;
+            width: 270px;
+            background-color: #636363;
+            text-wrap: wrap;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-radius: 30px;
+            row-gap: 1rem;
+        }
+
+        .name {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 50px;
+            width: 150px;
+            border: 2px solid rgb(34, 34, 34);
+            border-radius: 20px;
+            background-color: white;
+            opacity: 0.5;
+            font-weight: bold;
+        }
+
+        .bio {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            height: 150px;
+            width: 260px;
+            border: 2px solid rgb(34, 34, 34);
+            border-radius: 20px;
+            background-color: white;
+            opacity: 0.5;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="name">
+        </div>
+        <div class="bio">
+        </div>
+    </div>
+
+</body>
+
+<script>
+    const name = document.querySelector('.name');
+    const bio = document.querySelector('.bio');
+    const req = 'https://api.github.com/users/passionatesumon';
+    const xhr = new XMLHttpRequest(); // XMLHttpRequest -> is actually a class, that's why we use 'new' keyword.
+    xhr.open('GET', req);
+    xhr.onreadystatechange = function () {
+        console.log(xhr.readyState);
+        if (xhr.readyState === 4) {
+            // In most of the cases "API" recieved as a String, not an Object.
+            // for that we've to make it JSON..
+            const data = JSON.parse(this.responseText); // (.parse) -> make a string to JSON..
+            console.log(data);
+            name.textContent = data.name;
+            bio.textContent = data.bio;
+            console.log(data.bio);
+            console.log(data.blog);
+        }
+    }
+    xhr.send();
+</script>
+
+</html>
